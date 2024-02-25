@@ -1,0 +1,58 @@
+CREATE TABLE IF NOT EXISTS prog_langs (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, prog_lang VARCHAR(255) UNIQUE
+);
+CREATE TABLE IF NOT EXISTS speak_langs (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, speak_lang VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS skills (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,  skill VARCHAR(255) UNIQUE
+);
+CREATE TABLE IF NOT EXISTS topics (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, topic VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS degrees (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, degree_name VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS experience_levels (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, experience_level VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS specializations (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, specialization VARCHAR(255) UNIQUE
+);
+
+
+# for authentication service
+CREATE TABLE IF NOT EXISTS tokens (
+    id BINARY(16) NOT NULL PRIMARY KEY DEFAULT (UUID_TO_BIN(UUID())),
+    expiration_time DATETIME
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id BINARY(16) NOT NULL PRIMARY KEY DEFAULT (UUID_TO_BIN(UUID())),
+    active BOOLEAN, created DATETIME, updated DATETIME,
+    email VARCHAR(255) UNIQUE,
+    password VARCHAR(255),
+    roles ENUM('ADMIN', 'USER'),
+    token_id BINARY(16),
+    FOREIGN KEY (token_id) REFERENCES users(id)
+);
+
+#  for comment service
+CREATE TABLE IF NOT EXISTS comments (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    active BOOLEAN, created DATETIME, updated DATETIME,
+    author_id BINARY(16),
+    author_name VARCHAR(255),
+    is_deleted BOOLEAN,
+    comment TEXT
+);
+
+
+
+
+
+

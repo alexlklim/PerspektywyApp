@@ -17,9 +17,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
   boolean existsByEmail(String email);
 
 
-  List<User> findByCompany(Company company);
 
 
-  @Query("SELECT u FROM Member u WHERE u.id  = ?1")
-  User getUser(Long id);
 }

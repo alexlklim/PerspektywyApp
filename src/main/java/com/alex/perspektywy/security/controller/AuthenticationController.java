@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -21,22 +22,20 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private final String TAG = "AUTHENTICATION_CONTROLLER - ";
 
-
-
-
     private final UserAuthService userAuthService;
     private final AuthenticationService authenticationService;
 
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody RegisterDto request) {
+
+        // check if email approved or not
+
         boolean registerResult = userAuthService.register(request);
         if (!registerResult) {
             log.error(TAG + "Registration for user {} failed", request.getEmail());
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-
-        // send email that user was created for this email
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -51,6 +50,11 @@ public class AuthenticationController {
         return new ResponseEntity<>(authDto, HttpStatus.OK);
     }
 
+    @GetMapping("/logout")
+    public ResponseEntity<AuthDto> logout(Authentication authentication) {
+        authenticationService.logout((CustomPrincipal) authentication.getPrincipal());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
     @PostMapping("/refresh")
@@ -76,36 +80,30 @@ public class AuthenticationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // request which send email with the link with token to recovery password
     @PostMapping("/pw/forgot")
     public ResponseEntity<String> forgotPassword(String email) {
-        // send link to restore account to email
+        // request which send email with the link with token to recovery password
         boolean result = authenticationService.forgotPasswordAction(email);
-        if (result) return new ResponseEntity<>(HttpStatus.CONFLICT);
+        if (result) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     @PostMapping("/pw/recovery/{token}")
-    public ResponseEntity<?> recoveryPassword(
-            @PathVariable("token") String token,
-            String password) {
+    public ResponseEntity<?> recoveryPassword(@PathVariable("token") String token, String password) {
         boolean result = authenticationService.recoveryPassword(token, password);
-        if (result) return new ResponseEntity<>(HttpStatus.CONFLICT);
+        if (!result) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
 
     @GetMapping("/me")
     public ResponseEntity<CustomPrincipal> info(Authentication authentication) {
-        System.out.println(authentication);
-
         CustomPrincipal principal = (CustomPrincipal) authentication.getPrincipal();
-
-        System.out.println(authentication.getAuthorities());
-        System.out.println(principal);
         return new ResponseEntity<>(principal, HttpStatus.OK);
     }
+
 }

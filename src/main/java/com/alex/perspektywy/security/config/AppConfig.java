@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class AppConfig implements WebMvcConfigurer {
 
+
     private final UserRepo userRepo;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -31,7 +32,7 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepo.findByEmail(username)
+        return username -> userRepo.getUserByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
@@ -48,9 +49,9 @@ public class AppConfig implements WebMvcConfigurer {
         return config.getAuthenticationManager();
     }
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

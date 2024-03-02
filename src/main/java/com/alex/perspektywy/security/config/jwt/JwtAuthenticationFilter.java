@@ -38,7 +38,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         String jwt, userEmail;
@@ -71,7 +73,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         } catch (AuthenticationException e) {
             if (e instanceof NonceExpiredException) {
-                response.setStatus(HttpStatus.UNAUTHORIZED.value());return;
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                return;
             }
         }
         filterChain.doFilter(request, response);

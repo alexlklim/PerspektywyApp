@@ -11,9 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class RegisterDto {
-  private String fio;
+  private String firstName;
+  private String lastName;
   private String email;
   private String password;
+  private String role;
 }
 
 

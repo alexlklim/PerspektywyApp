@@ -27,7 +27,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String fio;
+    String firstname;
+    String lastname;
 
 
     @Column(unique = true)
@@ -35,8 +36,8 @@ public class User implements UserDetails {
     String password;
 
 
-    @Column(name = "is_enabled")
-    boolean isEnabled;
+    @Column(name = "is_active")
+    boolean isActive;
     @CreatedDate
     private LocalDateTime created;
     @LastModifiedDate
@@ -78,6 +79,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return isEnabled;
+        return isActive;
     }
 }

@@ -3,21 +3,19 @@ spring:
     url: jdbc:mysql://localhost:3306/perspective
     username: root
     password: 1Qazimodo237!
+  jpa:
+    open-in-view: false
+
   sql:
     init:
       mode: always
       continue-on-error: false
       schema-locations:
-        - classpath:schema.sql
-        - classpath:init.sql
+        - classpath:init/del.sql
+        - classpath:init/schema_user.sql
+        - classpath:init/schema_security.sql
+        - classpath:init/schema_projects.sql
+        - classpath:init/init.sql
 
 server:
   port: 9091
-  address: 0.0.0.0
-
-
-security:
-  jwt:
-    secret: rdtfyghujikoml,
-    access: 3600000
-    refresh: 36000000

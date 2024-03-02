@@ -17,7 +17,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AuthDto {
-    private String name;
+    private String firstname;
+    private String lastname;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime expiresAt;
     private List<String> role = new ArrayList<>();

@@ -1,6 +1,5 @@
 package com.alex.perspektywy.security.domain;
 
-import com.alex.perspektywy.core.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

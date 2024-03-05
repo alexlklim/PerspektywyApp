@@ -5,13 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Data
@@ -19,7 +16,6 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -36,12 +32,7 @@ public class User implements UserDetails {
     String password;
 
 
-    @Column(name = "is_active")
     boolean isActive;
-    @CreatedDate
-    private LocalDateTime created;
-    @LastModifiedDate
-    private LocalDateTime updated;
     
 
     @Enumerated(EnumType.STRING)

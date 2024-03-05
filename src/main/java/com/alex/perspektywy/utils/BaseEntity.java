@@ -23,8 +23,6 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    boolean active;
-
     @JsonIgnore
     @CreatedDate
     @Column(name = "created")

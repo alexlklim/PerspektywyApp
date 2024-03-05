@@ -1,21 +1,23 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/perspective
+    url: jdbc:mysql://localhost:3306/perspektive
     username: root
     password: 1Qazimodo237!
   jpa:
     open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
 
-  sql:
-    init:
-      mode: always
-      continue-on-error: false
-      schema-locations:
-        - classpath:init/del.sql
-        - classpath:init/schema_user.sql
-        - classpath:init/schema_security.sql
-        - classpath:init/schema_projects.sql
-        - classpath:init/init.sql
+#  sql:
+#    init:
+#      mode: always
+#      continue-on-error: false
+#      schema-locations:
+#        - classpath:init/del.sql
+#        - classpath:init/schema_user.sql
+#        - classpath:init/schema_security.sql
+#        - classpath:init/schema_projects.sql
+#        - classpath:init/init.sql
 
 server:
   port: 9091

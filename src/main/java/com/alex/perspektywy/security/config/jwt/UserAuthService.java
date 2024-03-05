@@ -30,6 +30,7 @@ public class UserAuthService {
         }
         User user = UserMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setActive(true);
         userRepo.save(user);
         log.info(TAG + "User with email {} was successfully created", request.getEmail());
 

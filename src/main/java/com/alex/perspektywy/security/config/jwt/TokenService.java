@@ -2,10 +2,11 @@ package com.alex.perspektywy.security.config.jwt;
 
 import com.alex.perspektywy.security.domain.Token;
 import com.alex.perspektywy.security.domain.User;
-import com.alex.perspektywy.security.mapper.DateService;
 import com.alex.perspektywy.security.repo.TokenRepo;
-
+import com.alex.perspektywy.utils.DateService;
+import com.alex.perspektywy.utils.exceptions.errors.user_error.UserFailedAuthentication;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,22 +46,16 @@ public class TokenService {
     }
 
 
+    @SneakyThrows
     public boolean checkIfTokenValid(UUID refreshToken, User user) {
         log.info(TAG + "Check if token belong to user: {} and not expired", user.getEmail());
-        Optional<Token> optionalToken = tokenRepo.findByUserAndToken(user, refreshToken);
-
-        if (optionalToken.isEmpty()) {
-            log.error(TAG + "Token {} not exist in DB for user {}", refreshToken, user.getEmail());
-            return false;
-        }
-
-        // check if token expired
-        Token token = optionalToken.get();
+        Token token = tokenRepo.findByUserAndToken(user, refreshToken)
+                .orElseThrow(() -> new UserFailedAuthentication("User authentication failed"));
         return token.getExpired() != null && token.getExpired().isBefore(LocalDateTime.now());
     }
 
 
-    public Token getTokenByToken(UUID refreshToken) {
+    public Optional<Token> getTokenByToken(UUID refreshToken) {
         log.info(TAG + "Get token by token {}", refreshToken);
         return tokenRepo.findByToken(refreshToken);
     }

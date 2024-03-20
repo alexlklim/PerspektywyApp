@@ -1,13 +1,18 @@
-package com.alex.perspektywy.security.mapper;
+package com.alex.perspektywy.utils;
 
 public class Utils {
 
     public final static String[] PUBLIC_ROUTES = {
-            "/api/auth/login",
-            "/api/auth/register",
-            "/api/auth/refresh",
-            "/api/auth/pw/forgot",
-            "/api/auth/pw/recovery/**"
+            "/api/v1/auth/login",
+            "/api/v1/auth/register",
+            "/api/v1/auth/refresh",
+            "/api/v1/auth/pw/forgot",
+            "/api/v1/auth/pw/recovery/**",
+
+            "/api/core/get",
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+
     };
 
 

@@ -10,10 +10,11 @@ import java.util.UUID;
 public interface TokenRepo extends JpaRepository<Token, Long> {
 
 
+
   void deleteAllByUser(User user);
 
 
   Optional<Token> findByUserAndToken(User user, UUID token);
 
-  Token findByToken(UUID token);
+  Optional<Token> findByToken(UUID token);
 }

@@ -1,6 +1,12 @@
 package com.alex.perspektywy.security.config;
 
+
 import com.alex.perspektywy.security.repo.UserRepo;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +26,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class AppConfig implements WebMvcConfigurer {
 
-
     private final UserRepo userRepo;
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -29,6 +35,22 @@ public class AppConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
     }
+
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        SecurityScheme securityScheme = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT");
+
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
+        return new OpenAPI()
+                .info(new Info().title("Asset Track Pro").description("Application for inventarization").version("1.0"))
+                .addSecurityItem(securityRequirement)
+                .components(new Components().addSecuritySchemes("bearerAuth", securityScheme));
+    }
+
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -54,4 +76,5 @@ public class AppConfig implements WebMvcConfigurer {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

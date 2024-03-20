@@ -23,6 +23,10 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+
+    @Column(name = "is_active")
+    boolean isActive;
+
     @JsonIgnore
     @CreatedDate
     @Column(name = "created")
@@ -32,4 +36,6 @@ public class BaseEntity implements Serializable {
     @LastModifiedDate
     @Column(name = "updated")
     Date updated;
+
+
 }

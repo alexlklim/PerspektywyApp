@@ -1,5 +1,5 @@
 
--- Create users table
+-- Create users.sql table
 CREATE TABLE IF NOT EXISTS users (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     is_active BOOLEAN  NOT NULL,

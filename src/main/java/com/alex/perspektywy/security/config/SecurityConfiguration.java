@@ -1,7 +1,7 @@
 package com.alex.perspektywy.security.config;
 
 import com.alex.perspektywy.security.config.jwt.JwtAuthenticationFilter;
-import com.alex.perspektywy.security.mapper.Utils;
+import com.alex.perspektywy.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

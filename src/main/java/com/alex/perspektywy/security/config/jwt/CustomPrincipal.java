@@ -20,5 +20,6 @@ public class CustomPrincipal implements Principal {
     public CustomPrincipal(User user) {
         this.userId = user.getId();
         this.name = user.getEmail();
+
     }
 }

@@ -1,82 +1,98 @@
 package com.alex.perspektywy.security.config.jwt;
 
+import com.alex.perspektywy.email.EmailService;
+
+import com.alex.perspektywy.notification.NotificationService;
+import com.alex.perspektywy.notification.domain.Reason;
+import com.alex.perspektywy.security.UserMapper;
 import com.alex.perspektywy.security.domain.User;
-import com.alex.perspektywy.security.domain.dto.PasswordDto;
-import com.alex.perspektywy.security.domain.dto.RegisterDto;
-import com.alex.perspektywy.security.mapper.UserMapper;
+import com.alex.perspektywy.security.dto.PasswordDto;
+import com.alex.perspektywy.security.dto.RegisterDto;
 import com.alex.perspektywy.security.repo.UserRepo;
+import com.alex.perspektywy.utils.exceptions.errors.user_error.ObjectAlreadyExistException;
+import com.alex.perspektywy.utils.exceptions.errors.user_error.UserNotRegisterYet;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.naming.AuthenticationException;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class UserAuthService {
-    private final String TAG = "USER AUTHENTICATION SERVICE - ";
+    private final String TAG = "USER_AUTHENTICATION_SERVICE - ";
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepo userRepo;
+    private final EmailService emailService;
+    private final NotificationService notificationService;
 
 
-    public boolean register(RegisterDto request) {
-        log.info(TAG + "Register user with email: {}", request.getEmail());
-        if (userRepo.existsByEmail(request.getEmail())) {
-            log.error(TAG + "User with email {} is already exists", request.getEmail());
-            return false;
+    @SneakyThrows
+    public void register(RegisterDto dto, Long userId) {
+        log.info(TAG + "Register user with email: {}", dto.getEmail());
+        if (userRepo.existsByEmail(dto.getEmail())) {
+            throw new ObjectAlreadyExistException("User with email {} is already exists");
         }
-        User user = UserMapper.toUser(request);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setActive(true);
+        User user = UserMapper.toUser(dto);
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
         userRepo.save(user);
-        log.info(TAG + "User with email {} was successfully created", request.getEmail());
+        emailService.accountWasCreated(user);
 
-
-        // send email what account was created
-        return true;
+        notificationService.sendSystemNotificationToSpecificUser(Reason.USER_WAS_CREATED, userRepo.getUser(userId));
+        notificationService.sendSystemNotificationToSpecificUser(Reason.NEW_USER, user);
     }
 
 
-    public boolean changePassword(PasswordDto dto, CustomPrincipal principal) {
+    @SneakyThrows
+    public void changePassword(PasswordDto dto, CustomPrincipal principal) {
         log.info(TAG + "Change password for user with email: {}", principal.getName());
-        User user = userRepo.getUserByEmail(principal.getName()).orElse(null);
-        assert user != null;
-        if (!passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())) return false;
+        User user = userRepo.getUser(principal.getUserId());
+        if (!passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword()))
+            throw new AuthenticationException("Password is wrong");
         user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         userRepo.save(user);
-        return true;
+
+        notificationService.sendSystemNotificationToSpecificUser(Reason.PASSWORD_WAS_CHANGED, user);
+        emailService.passwordWasChanged(principal.getName());
     }
 
+
+    @SneakyThrows
     public void changePasswordForgot(String email, String password) {
         log.info(TAG + "Change password for user: {}", email);
-        User user = userRepo.getUserByEmail(email).orElse(null);
-        if (user == null) {
-            log.info(TAG + "User with email {} was not found", email);
-            return;
-        }
+        User user = userRepo.getUserByEmail(email).orElseThrow(
+                () -> new UserNotRegisterYet("User with email " + email + " is not registered"));
         user.setPassword(passwordEncoder.encode(password));
         userRepo.save(user);
+
+        notificationService.sendSystemNotificationToSpecificUser(Reason.PASSWORD_WAS_CHANGED, user);
+        emailService.passwordWasChanged(email);
     }
 
-
-    public boolean existsByEmail(String email) {
-        log.info(TAG + "Exists by email: {}", email);
-        return userRepo.existsByEmail(email);
-    }
-
-    @Transactional(readOnly = true)
-    public User getByEmail(String email) {
-        log.info(TAG + "Get by email: {}", email);
-        return userRepo.getUserByEmail(email).orElse(null);
-    }
 
     public User getById(Long userId) {
         log.info(TAG + "Exists by user id: {}", userId);
         return userRepo.findById(userId).orElse(null);
     }
 
+    @Transactional
+    public void updateLastActivity(Long userId) {
+        User user = userRepo.getUser(userId);
+        user.setLastActivity(LocalDateTime.now());
+        userRepo.save(user);
+    }
+
+
+    public Optional<User> getUserByEmail(String email) {
+        return userRepo.getUserByEmail(email);
+    }
 
 }

@@ -46,7 +46,7 @@ public class AppConfig implements WebMvcConfigurer {
 
         SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
         return new OpenAPI()
-                .info(new Info().title("Asset Track Pro").description("Application for inventarization").version("1.0"))
+                .info(new Info().title("Perspektywy App").description("Application to find...").version("1.0"))
                 .addSecurityItem(securityRequirement)
                 .components(new Components().addSecuritySchemes("bearerAuth", securityScheme));
     }

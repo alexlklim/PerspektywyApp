@@ -1,9 +1,10 @@
 package com.alex.perspektywy.users.domain;
 
+import com.alex.perspektywy.security.domain.User;
 import com.alex.perspektywy.users.domain.enums.Degree;
 import com.alex.perspektywy.users.domain.enums.Specialization;
 import com.alex.perspektywy.users.domain.enums.Universities;
-import com.alex.perspektywy.utils.BaseEntity;
+import com.alex.perspektywy.utils.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)

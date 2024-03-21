@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 public enum Role {
-    ADMIN("ROLE_ADMIN", "ROLE_EMP"), EMP("ROLE_EMP");
+    ADMIN("ROLE_ADMIN", "ROLE_USER"), USER("ROLE_USER");
     private final List<String> permissions;
 
     Role(String... permissions) {

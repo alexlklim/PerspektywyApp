@@ -36,7 +36,7 @@ public class UserAuthService {
 
 
     @SneakyThrows
-    public void register(RegisterDto dto, Long userId) {
+    public void register(RegisterDto dto) {
         log.info(TAG + "Register user with email: {}", dto.getEmail());
         if (userRepo.existsByEmail(dto.getEmail())) {
             throw new ObjectAlreadyExistException("User with email {} is already exists");
@@ -46,8 +46,6 @@ public class UserAuthService {
         userRepo.save(user);
         emailService.accountWasCreated(user);
 
-        notificationService.sendSystemNotificationToSpecificUser(Reason.USER_WAS_CREATED, userRepo.getUser(userId));
-        notificationService.sendSystemNotificationToSpecificUser(Reason.NEW_USER, user);
     }
 
 

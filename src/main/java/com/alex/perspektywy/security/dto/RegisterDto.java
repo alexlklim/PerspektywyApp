@@ -23,8 +23,6 @@ public class RegisterDto {
   @Schema(description = "Last name", example = "Klim")
   private String lastName;
 
-  @Schema(description = "Phone", example = "+48 877 202 134")
-  private String phone;
 
   @Schema(description = "Email", example = "alex@gmail.com")
   private String email;

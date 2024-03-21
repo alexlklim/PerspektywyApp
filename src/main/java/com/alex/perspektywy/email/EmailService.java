@@ -3,7 +3,6 @@ package com.alex.perspektywy.email;
 
 import com.alex.perspektywy.security.domain.User;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -39,7 +38,6 @@ public class EmailService {
     }
 
 
-    @SneakyThrows
     private void sendMail(String mail) {
 
     }

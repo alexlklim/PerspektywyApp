@@ -31,13 +31,9 @@ public class UserDto {
     @Schema(description = "Last name", example = "Klim")
     private String lastName;
 
-    @Schema(description = "Phone", example = "+48 877 202 134")
-    private String phone;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Schema(description = "Is active", example = "true")
     boolean isActive;
-
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

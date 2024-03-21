@@ -20,21 +20,22 @@ import java.util.UUID;
 @Table(name = "token")
 public class Token {
 
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
 
-  public UUID token;
+    public UUID token;
 
-  @CreatedDate
-  public LocalDateTime created;
+    @CreatedDate
+    public LocalDateTime created;
 
-  @LastModifiedDate
-  public LocalDateTime expired;
+    @LastModifiedDate
+    public LocalDateTime expired;
 
 
-  @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "user_id")
-  public User user;
-
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    public User user;
 
 
 }

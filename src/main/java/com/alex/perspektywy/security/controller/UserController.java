@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1/company/users")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @Tag(name = "User Controller", description = "User API")
 public class UserController {
@@ -33,14 +33,11 @@ public class UserController {
 
 
     @Operation(summary = "Register new user")
-    @Secured("ROLE_ADMIN")
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<UserDto> register(
             @RequestBody RegisterDto registerDto) {
         log.info(TAG + "Register new user");
-        userAuthService.register(
-                registerDto,
-                SecHolder.getUserId());
+        userAuthService.register(registerDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -68,26 +65,13 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary = "Get info about user by id (only for admin)")
-    @Secured("ROLE_ADMIN")
+    @Operation(summary = "Get info about user by id")
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getInfoAboutUser(
             @PathVariable("id") Long userId) {
         log.info(TAG + "Get info about user");
         return new ResponseEntity<>(
                 userService.getInfoAboutUserById(userId),
-                HttpStatus.OK);
-    }
-
-    @Operation(summary = "Update info about user by id (only for admin)")
-    @Secured("ROLE_ADMIN")
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateInfoAboutUser(
-            @PathVariable("id") Long userId,
-            @RequestBody UserDto userDto) {
-        log.info(TAG + "Update info about user");
-        return new ResponseEntity<>(
-                userService.updateUser(userId, userDto, SecHolder.getUserId()),
                 HttpStatus.OK);
     }
 

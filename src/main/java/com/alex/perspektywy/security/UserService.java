@@ -1,8 +1,6 @@
 package com.alex.perspektywy.security;
 
-import com.alex.perspektywy.logs.LogService;
-import com.alex.perspektywy.logs.domain.Action;
-import com.alex.perspektywy.logs.domain.Section;
+
 import com.alex.perspektywy.notification.NotificationService;
 import com.alex.perspektywy.notification.domain.Reason;
 import com.alex.perspektywy.security.domain.Role;
@@ -29,7 +27,6 @@ public class UserService {
 
     private final String TAG = "USER_SERVICE - ";
     private final UserRepo userRepo;
-    private final LogService logService;
     private final NotificationService notificationService;
 
     public UserDto getInfoAboutUserById(Long id) {
@@ -56,7 +53,6 @@ public class UserService {
         user.setActive(dto.isActive());
         userRepo.save(user);
 
-        logService.addLog(userId, Action.UPDATE, Section.USERS, dto.toString());
         if (dto.isActive()) {
             notificationService.sendSystemNotificationToSpecificUser(Reason.USER_WAS_ENABLED, userRepo.getUser(userId));
             notificationService.sendSystemNotificationToSpecificUser(Reason.YOU_WERE_ENABLED, user);
@@ -73,11 +69,7 @@ public class UserService {
         user.setFirstname(dto.getFirstName());
         user.setLastname(dto.getLastName());
         user.setEmail(dto.getEmail());
-        user.setPhone(dto.getPhone());
         user.setRoles(Role.fromString(dto.getRole()));
-        logService.addLog(userId, Action.UPDATE, Section.USERS, dto.toString());
-        notificationService.sendSystemNotificationToSpecificUser(Reason.USER_WAS_UPDATED, userRepo.getUser(userId));
-        notificationService.sendSystemNotificationToSpecificUser(Reason.YOU_WERE_UPDATED, user);
         return UserMapper.toDto(userRepo.save(user));
     }
 

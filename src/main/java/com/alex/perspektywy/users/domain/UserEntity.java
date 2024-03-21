@@ -1,5 +1,6 @@
-package com.alex.perspektywy.security.domain;
+package com.alex.perspektywy.users.domain;
 
+import com.alex.perspektywy.security.domain.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +22,7 @@ import java.util.Collection;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
-public class User implements UserDetails {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,41 +48,5 @@ public class User implements UserDetails {
     LocalDateTime updated;
 
 
-    @Enumerated(EnumType.STRING)
-    private Role roles;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.getAuthorities();
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return isActive;
-    }
 }

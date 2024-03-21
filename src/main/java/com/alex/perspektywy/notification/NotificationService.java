@@ -1,9 +1,6 @@
 package com.alex.perspektywy.notification;
 
 
-import com.alex.perspektywy.logs.LogService;
-import com.alex.perspektywy.logs.domain.Action;
-import com.alex.perspektywy.logs.domain.Section;
 import com.alex.perspektywy.notification.domain.Notification;
 import com.alex.perspektywy.notification.domain.NotificationDto;
 import com.alex.perspektywy.notification.domain.Reason;
@@ -27,7 +24,6 @@ public class NotificationService {
 
     private final String TAG = "NOTIFICATION_SERVICE - ";
 
-    private final LogService logService;
     private final NotificationRepo notificationRepo;
     private final NotificationMapper notificationMapper;
     private final UserRepo userRepo;
@@ -69,7 +65,6 @@ public class NotificationService {
                         userRepo.findById(userTo).orElseThrow(() -> new ResourceNotFoundException("User with id " + userTo + " not found")),
                         userRepo.getUser(userFromId)));
 
-        logService.addLog(userFromId, Action.CREATE, Section.NOTIFICATION, dto.toString());
     }
 
 
@@ -77,7 +72,6 @@ public class NotificationService {
         log.info(TAG + "Send notification to all users from user with id {}", userFromId);
         List<User> users = userRepo.getActiveUsers();
         users.forEach(user -> saveNotificationToSpecificUser(dto, user.getId(), userFromId));
-        logService.addLog(userFromId, Action.CREATE, Section.NOTIFICATION, dto.toString());
     }
 
 
@@ -113,6 +107,5 @@ public class NotificationService {
                 () -> new ResourceNotFoundException("Notification with id " + dto.getId() + " not found"));
         notification.setActive(dto.isActive());
         notificationRepo.save(notification);
-        logService.addLog(userId, Action.UPDATE, Section.NOTIFICATION, dto.toString());
     }
 }

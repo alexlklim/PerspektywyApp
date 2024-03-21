@@ -14,7 +14,6 @@ public class UserMapper {
         User user = new User();
         user.setFirstname(dto.getFirstName());
         user.setLastname(dto.getLastName());
-        user.setPhone(dto.getPhone());
         user.setEmail(dto.getEmail());
         user.setRoles(Role.fromString(dto.getRole()));
         user.setActive(true);
@@ -28,7 +27,6 @@ public class UserMapper {
         dto.setId(entity.getId());
         dto.setFirstName(entity.getFirstname());
         dto.setLastName(entity.getLastname());
-        dto.setPhone(entity.getPhone());
         dto.setEmail(entity.getEmail());
         dto.setActive(entity.isActive());
         dto.setRole(entity.getRoles().name());

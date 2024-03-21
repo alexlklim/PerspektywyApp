@@ -8,6 +8,6 @@ import lombok.Data;
 @Schema(description = "Name Dto")
 public class DtoName {
 
-    @Schema(description = "Name", example = "Samsung galaxy")
+    @Schema(description = "Name", example = "Name")
     private String name;
 }

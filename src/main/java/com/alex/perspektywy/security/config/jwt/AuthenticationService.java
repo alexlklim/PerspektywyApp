@@ -1,8 +1,8 @@
 package com.alex.perspektywy.security.config.jwt;
 
 import com.alex.perspektywy.email.EmailService;
-import com.alex.perspektywy.security.domain.Token;
 import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.security.domain.Token;
 import com.alex.perspektywy.security.dto.AuthDto;
 import com.alex.perspektywy.security.dto.LoginDto;
 import com.alex.perspektywy.security.dto.TokenDto;

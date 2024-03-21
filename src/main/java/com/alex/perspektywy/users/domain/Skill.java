@@ -1,6 +1,6 @@
 package com.alex.perspektywy.users.domain;
 
-import com.alex.perspektywy.utils.BaseEntity;
+import com.alex.perspektywy.utils.domain.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;

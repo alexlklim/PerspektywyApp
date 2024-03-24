@@ -17,6 +17,5 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "skills") @Entity
 public class Skill  extends BaseEntity {
-
     String skill;
 }

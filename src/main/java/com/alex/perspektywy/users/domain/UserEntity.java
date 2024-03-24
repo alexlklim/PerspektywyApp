@@ -1,22 +1,16 @@
 package com.alex.perspektywy.users.domain;
 
-import com.alex.perspektywy.security.domain.Role;
+import com.alex.perspektywy.users.domain.enums.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
 
-@Data
-@Builder
+
+@Getter
+@Setter
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -28,25 +22,65 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "is_active")
-    boolean isActive;
 
-    String firstname, lastname;
 
+
+    @Column(name = "first_name")
+    String firstname;
+
+    @Column(name = "last_name")
+    String lastname;
 
     @Column(unique = true)
     String email;
-    String password;
-
-    @Column(name = "last_activity")
-    LocalDateTime lastActivity;
 
 
-    @CreatedDate
-    LocalDateTime created;
-    @LastModifiedDate
-    LocalDateTime updated;
+    @Column(name = "about_me")
+    String abutMe;
 
+    @Column(name = "born_year")
+    Integer bornYear;
+
+    Double longitude;
+    Double latitude;
+
+    @Column(name = "experience_years")
+    Integer experienceYears;
+
+    @Enumerated(EnumType.STRING)
+    City city;
+
+    @Column(name = "experience_level")
+    @Enumerated(EnumType.STRING)
+    ExperienceLevel experienceLevel;
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "user_statuses",
+            joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_status")
+    List<UserStatus> userStatuses;
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "user_programming_langs",
+            joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "programming_lang")
+    @Enumerated(EnumType.STRING)
+    List<ProgrammingLang> programmingLangs;
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "user_speaking_langs",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Enumerated(EnumType.STRING)
+    @Column(name = "speaking_lang")
+    private List<SpeakingLang> speakingLangs;
 
 
 }

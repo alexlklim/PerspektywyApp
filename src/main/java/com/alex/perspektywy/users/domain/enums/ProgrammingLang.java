@@ -1,5 +1,8 @@
 package com.alex.perspektywy.users.domain.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ProgrammingLang {
     C_PLUS("C++"),
     JAVA("Java"),
@@ -22,10 +25,6 @@ public enum ProgrammingLang {
 
     ProgrammingLang(String langName) {
         this.langName = langName;
-    }
-
-    public String getLangName() {
-        return langName;
     }
 
 

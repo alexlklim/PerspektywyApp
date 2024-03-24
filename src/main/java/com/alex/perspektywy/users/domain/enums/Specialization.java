@@ -1,5 +1,8 @@
 package com.alex.perspektywy.users.domain.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Specialization {
 
     COMPUTER_SCIENCE("Computer Science"),
@@ -21,7 +24,4 @@ public enum Specialization {
         this.specializationName = specializationName;
     }
 
-    public String getSpecializationName() {
-        return specializationName;
-    }
 }

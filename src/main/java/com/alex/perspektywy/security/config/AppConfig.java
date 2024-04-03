@@ -1,7 +1,7 @@
 package com.alex.perspektywy.security.config;
 
 
-import com.alex.perspektywy.security.repo.UserRepo;
+import com.alex.perspektywy.users.repo.UserRepo;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

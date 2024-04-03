@@ -1,5 +1,9 @@
 package com.alex.perspektywy.users.domain.enums;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum ExperienceLevel {
 
 
@@ -21,4 +25,9 @@ public enum ExperienceLevel {
         throw new IllegalArgumentException("No enum constant " + experienceLevelName + " found in ExperienceLevel");
     }
 
+    public static List<String> getAll() {
+        return Arrays.stream(ExperienceLevel.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+    }
 }

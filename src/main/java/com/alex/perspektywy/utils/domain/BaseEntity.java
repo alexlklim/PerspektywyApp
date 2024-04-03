@@ -31,4 +31,7 @@ public class BaseEntity implements Serializable {
     @JsonIgnore @LastModifiedDate @Column(name = "updated")
     LocalDateTime updated;
 
+    @Column(name = "is_active")
+    boolean isActive;
+
 }

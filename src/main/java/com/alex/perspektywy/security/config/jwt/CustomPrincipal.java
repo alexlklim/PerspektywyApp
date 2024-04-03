@@ -1,6 +1,6 @@
 package com.alex.perspektywy.security.config.jwt;
 
-import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.users.domain.User;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;

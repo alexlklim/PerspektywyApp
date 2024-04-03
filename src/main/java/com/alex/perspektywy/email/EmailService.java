@@ -1,7 +1,7 @@
 package com.alex.perspektywy.email;
 
 
-import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;

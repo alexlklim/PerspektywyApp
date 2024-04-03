@@ -4,7 +4,7 @@ import com.alex.perspektywy.security.config.jwt.AuthenticationService;
 import com.alex.perspektywy.security.config.jwt.UserAuthService;
 import com.alex.perspektywy.security.dto.*;
 import com.alex.perspektywy.utils.SecHolder;
-import com.alex.perspektywy.utils.dto.DtoActive;
+import com.alex.perspektywy.utils.dto.DtoActiveBool;
 import com.alex.perspektywy.utils.dto.DtoName;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -117,10 +117,10 @@ public class AuthController {
     @Secured("ROLE_ADMIN")
     @PutMapping("/active")
     public ResponseEntity<HttpStatus> changeUserVisibility(
-            @RequestBody DtoActive dtoActive) {
+            @RequestBody DtoActiveBool dtoActiveBool) {
         log.info(TAG + "Try to change user visibility");
         userAuthService.changeUserVisibility(
-                dtoActive,
+                dtoActiveBool,
                 SecHolder.getUserId());
         return new ResponseEntity<>(HttpStatus.OK);
     }

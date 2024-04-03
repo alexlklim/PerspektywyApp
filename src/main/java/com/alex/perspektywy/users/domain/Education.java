@@ -1,6 +1,5 @@
 package com.alex.perspektywy.users.domain;
 
-import com.alex.perspektywy.security.domain.User;
 import com.alex.perspektywy.users.domain.enums.Degree;
 import com.alex.perspektywy.users.domain.enums.Specialization;
 import com.alex.perspektywy.users.domain.enums.Universities;
@@ -21,12 +20,9 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "educations") @Entity
 public class Education extends BaseEntity {
-
     boolean isCurrent;
-    
     LocalDate startDate;
     LocalDate finishDate;
-
 
     @Enumerated(EnumType.STRING)
     Degree degree;
@@ -35,7 +31,7 @@ public class Education extends BaseEntity {
     Specialization specialization;
 
     @Enumerated(EnumType.STRING)
-    Universities universities;
+    Universities university;
 
     @ManyToOne
     User user;

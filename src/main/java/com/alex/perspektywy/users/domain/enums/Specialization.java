@@ -2,6 +2,10 @@ package com.alex.perspektywy.users.domain.enums;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 public enum Specialization {
 
@@ -24,4 +28,22 @@ public enum Specialization {
         this.specializationName = specializationName;
     }
 
+
+    public static Specialization fromString(String specializationName) {
+        for (Specialization specialization : Specialization.values()) {
+            if (specialization.getSpecializationName().equalsIgnoreCase(specializationName)) {
+                return specialization;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant with specialization name: " + specializationName);
+    }
+    public static List<String> getAll() {
+        return Arrays.stream(Specialization.values())
+                .map(Specialization::getSpecializationName)
+                .collect(Collectors.toList());
+    }
+
+    public String getSpecializationName() {
+        return specializationName;
+    }
 }

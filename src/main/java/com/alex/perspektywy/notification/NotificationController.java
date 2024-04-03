@@ -3,7 +3,7 @@ package com.alex.perspektywy.notification;
 
 import com.alex.perspektywy.notification.domain.NotificationDto;
 import com.alex.perspektywy.utils.SecHolder;
-import com.alex.perspektywy.utils.dto.DtoActive;
+import com.alex.perspektywy.utils.dto.DtoActiveBool;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -90,7 +90,7 @@ public class NotificationController {
     @Secured("ROLE_ADMIN")
     @PutMapping("/active")
     public ResponseEntity<HttpStatus> changeVisibilityOfNotification(
-            @RequestBody DtoActive activeDto) {
+            @RequestBody DtoActiveBool activeDto) {
         log.info(TAG + "Change visibility of notification with id {} to status {}",
                 activeDto.getId(), activeDto.isActive());
         notificationService.changeNotificationVisibility(

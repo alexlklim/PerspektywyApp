@@ -1,14 +1,12 @@
 package com.alex.perspektywy.users.dto;
 
-
-import com.alex.perspektywy.users.domain.enums.*;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @Builder(toBuilder = true)
@@ -16,26 +14,19 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-@Schema(description = "User DTO Representation")
-public class UserV2Update {
+@Schema(description = "Education DTO")
+public class EducationDTO {
 
-    String abutMe;
+    Long id;
 
-    Integer bornYear;
+    boolean isActive;
+    boolean isCurrent;
 
-    Double longitude;
-    Double latitude;
+    LocalDate startDate;
+    LocalDate finishDate;
 
-    Integer experienceYears;
-
-    City city;
-
-    ExperienceLevel experienceLevel;
-
-    List<String> userStatuses;
-
-    List<String> programmingLangs;
-
-    private List<String> speakingLangs;
+    String degree;
+    String specialization;
+    String university;
 
 }

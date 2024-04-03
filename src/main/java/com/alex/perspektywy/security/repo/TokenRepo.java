@@ -1,7 +1,7 @@
 package com.alex.perspektywy.security.repo;
 
 import com.alex.perspektywy.security.domain.Token;
-import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.users.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

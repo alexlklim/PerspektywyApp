@@ -4,7 +4,7 @@ package com.alex.perspektywy.notification;
 import com.alex.perspektywy.notification.domain.Notification;
 import com.alex.perspektywy.notification.domain.NotificationDto;
 import com.alex.perspektywy.notification.domain.Reason;
-import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.users.domain.User;
 import org.springframework.stereotype.Service;
 
 @Service

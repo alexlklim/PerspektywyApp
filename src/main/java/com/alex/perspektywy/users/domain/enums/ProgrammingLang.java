@@ -2,6 +2,10 @@ package com.alex.perspektywy.users.domain.enums;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 public enum ProgrammingLang {
     C_PLUS("C++"),
@@ -28,12 +32,23 @@ public enum ProgrammingLang {
     }
 
 
-    public static ProgrammingLang getByLangName(String langName) {
+    public static ProgrammingLang fromString(String langName) {
         for (ProgrammingLang lang : ProgrammingLang.values()) {
             if (lang.getLangName().equalsIgnoreCase(langName)) {
                 return lang;
             }
         }
         throw new IllegalArgumentException("No enum constant with langName: " + langName);
+    }
+
+
+    public static List<String> getAll() {
+        return Arrays.stream(ProgrammingLang.values())
+                .map(ProgrammingLang::getLangName)
+                .collect(Collectors.toList());
+    }
+
+    public String getLangName() {
+        return langName;
     }
 }

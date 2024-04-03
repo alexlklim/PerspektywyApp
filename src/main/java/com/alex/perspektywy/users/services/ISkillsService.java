@@ -4,25 +4,16 @@ import com.alex.perspektywy.users.domain.Skill;
 import com.alex.perspektywy.users.domain.enums.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ISkillsService {
 
+    void updateSkills(List<Map<String, Boolean>> skills, Long userId);
 
-    void addSkills(List<String> skills);
-
-    Skill getSkillById(Long skillId);
-
-    List<Skill> getSkillsByName(String skillName);
+    List<String> getSkills();
 
 
-    List<City> getCities();
 
 
-    List<ExperienceLevel> getExperienceLevels();
-
-    List<ProgrammingLang> getProgrammingLangs();
-
-    List<SpeakingLang> getSpeakingLangs();
-
-    List<UserStatus> getUserStatuses();
+    List<Map<String, Object>> getFieldsForUser();
 }

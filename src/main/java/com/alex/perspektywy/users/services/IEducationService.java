@@ -1,19 +1,13 @@
 package com.alex.perspektywy.users.services;
 
-import com.alex.perspektywy.users.domain.Education;
-import com.alex.perspektywy.users.domain.enums.Degree;
-import com.alex.perspektywy.users.domain.enums.Specialization;
-import com.alex.perspektywy.users.domain.enums.Universities;
+import com.alex.perspektywy.users.dto.EducationDTO;
+import com.alex.perspektywy.users.dto.EducationFieldsDTO;
 
 import java.util.List;
 
 public interface IEducationService {
+    EducationFieldsDTO getEducationFields();
 
+    void updateEducationsForUser(List<EducationDTO> educationDTOList, Long userId);
 
-    List<Degree> getDegrees();
-    List<Specialization> getSpecializations();
-    List<Universities> getUniversities();
-
-
-    List<Education> getEducationsByUser(Long userId);
 }

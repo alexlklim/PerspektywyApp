@@ -1,7 +1,7 @@
 package com.alex.perspektywy.notification;
 
 import com.alex.perspektywy.notification.domain.Notification;
-import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.users.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

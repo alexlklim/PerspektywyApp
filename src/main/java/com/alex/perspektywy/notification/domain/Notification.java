@@ -1,7 +1,7 @@
 package com.alex.perspektywy.notification.domain;
 
 
-import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.users.domain.User;
 import com.alex.perspektywy.utils.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;

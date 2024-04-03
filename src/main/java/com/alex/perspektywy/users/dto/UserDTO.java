@@ -1,6 +1,8 @@
 package com.alex.perspektywy.users.dto;
 
 
+import com.alex.perspektywy.users.domain.Education;
+import com.alex.perspektywy.users.domain.Skill;
 import com.alex.perspektywy.users.domain.enums.*;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -9,6 +11,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder(toBuilder = true)
@@ -17,12 +20,11 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Schema(description = "User DTO Representation")
-public class UserV1Represent {
+public class UserDTO {
 
     Long id;
 
     String firstname;
-
     String lastname;
 
     String email;
@@ -40,11 +42,17 @@ public class UserV1Represent {
 
     ExperienceLevel experienceLevel;
 
-    List<UserStatus> userStatuses;
+    List<Map<String, Boolean>> userStatuses;
 
-    List<ProgrammingLang> programmingLangs;
 
-    private List<SpeakingLang> speakingLangs;
+    List<Map<String, Boolean>> programmingLangs;
 
+    List<Map<String, Boolean>> speakingLangs;
+
+
+
+    List<Map<String, Boolean>> skills;
+
+    List<EducationDTO> educations;
 
 }

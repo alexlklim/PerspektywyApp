@@ -1,5 +1,9 @@
 package com.alex.perspektywy.users.domain.enums;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum UserStatus {
 
     IS_MENTOR,
@@ -16,4 +20,13 @@ public enum UserStatus {
         }
         throw new IllegalArgumentException("No enum constant " + userStatusName + " found in UserStatus");
     }
+
+
+    public static List<String> getAll() {
+        return Arrays.stream(UserStatus.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+    }
+
+
 }

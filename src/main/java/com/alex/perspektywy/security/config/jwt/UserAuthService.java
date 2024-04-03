@@ -5,12 +5,12 @@ import com.alex.perspektywy.email.EmailService;
 import com.alex.perspektywy.notification.NotificationService;
 import com.alex.perspektywy.notification.domain.Reason;
 import com.alex.perspektywy.security.UserMapper;
-import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.users.domain.User;
 import com.alex.perspektywy.security.dto.PasswordDto;
 import com.alex.perspektywy.security.dto.RegisterDto;
 import com.alex.perspektywy.security.dto.UserDto;
-import com.alex.perspektywy.security.repo.UserRepo;
-import com.alex.perspektywy.utils.dto.DtoActive;
+import com.alex.perspektywy.users.repo.UserRepo;
+import com.alex.perspektywy.utils.dto.DtoActiveBool;
 import com.alex.perspektywy.utils.exceptions.errors.ResourceNotFoundException;
 import com.alex.perspektywy.utils.exceptions.errors.user_error.ObjectAlreadyExistException;
 import com.alex.perspektywy.utils.exceptions.errors.user_error.UserNotRegisterYet;
@@ -118,7 +118,7 @@ public class UserAuthService {
     @SneakyThrows
     @Modifying
     @Transactional
-    public void changeUserVisibility(DtoActive dto, Long userId) {
+    public void changeUserVisibility(DtoActiveBool dto, Long userId) {
         log.info(TAG + "Change user visibility");
         User user = userRepo.findById(dto.getId()).orElseThrow(
                 () -> new ResourceNotFoundException("User with id " + dto.getId() + " was not found"));

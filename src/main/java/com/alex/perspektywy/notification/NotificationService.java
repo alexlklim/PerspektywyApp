@@ -5,9 +5,9 @@ import com.alex.perspektywy.notification.domain.Notification;
 import com.alex.perspektywy.notification.domain.NotificationDto;
 import com.alex.perspektywy.notification.domain.Reason;
 import com.alex.perspektywy.security.domain.Role;
-import com.alex.perspektywy.security.domain.User;
-import com.alex.perspektywy.security.repo.UserRepo;
-import com.alex.perspektywy.utils.dto.DtoActive;
+import com.alex.perspektywy.users.domain.User;
+import com.alex.perspektywy.users.repo.UserRepo;
+import com.alex.perspektywy.utils.dto.DtoActiveBool;
 import com.alex.perspektywy.utils.exceptions.errors.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -101,7 +101,7 @@ public class NotificationService {
     }
 
 
-    public void changeNotificationVisibility(DtoActive dto, Long userId) {
+    public void changeNotificationVisibility(DtoActiveBool dto, Long userId) {
         log.info(TAG + "Change notification visibility with id {} to status {}", dto.getId(), dto.isActive());
         Notification notification = notificationRepo.findById(dto.getId()).orElseThrow(
                 () -> new ResourceNotFoundException("Notification with id " + dto.getId() + " not found"));

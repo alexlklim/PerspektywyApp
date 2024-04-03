@@ -1,6 +1,6 @@
 package com.alex.perspektywy.security.config.jwt;
 
-import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.users.domain.User;
 import com.alex.perspektywy.utils.exceptions.errors.user_error.UserFailedAuthentication;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

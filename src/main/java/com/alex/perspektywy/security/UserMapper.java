@@ -1,7 +1,7 @@
 package com.alex.perspektywy.security;
 
 import com.alex.perspektywy.security.domain.Role;
-import com.alex.perspektywy.security.domain.User;
+import com.alex.perspektywy.users.domain.User;
 import com.alex.perspektywy.security.dto.RegisterDto;
 import com.alex.perspektywy.security.dto.UserDto;
 import com.alex.perspektywy.utils.DateService;

@@ -1,19 +1,15 @@
 package com.alex.perspektywy.users.services;
 
 import com.alex.perspektywy.users.domain.Skill;
-import com.alex.perspektywy.users.domain.enums.*;
+import com.alex.perspektywy.users.dto.EducationFieldsDTO;
+import com.alex.perspektywy.users.dto.SkillsFieldsDTO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ISkillsService {
+    List<Skill> getSkillsByFirstLetters(String keyWord);
 
-    void updateSkills(List<Map<String, Boolean>> skills, Long userId);
+    SkillsFieldsDTO getSkillsFields();
 
-    List<String> getSkills();
-
-
-
-
-    List<Map<String, Object>> getFieldsForUser();
+    EducationFieldsDTO getEducationFields();
 }

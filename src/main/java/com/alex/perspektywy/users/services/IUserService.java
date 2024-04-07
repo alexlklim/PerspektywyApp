@@ -1,13 +1,16 @@
 package com.alex.perspektywy.users.services;
 
-import com.alex.perspektywy.security.dto.UserDto;
+import com.alex.perspektywy.users.dto.UserDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IUserService {
 
 
-    UserDto updateUser(UserDto userDto);
+    UserDTO getUserById(Long userId);
 
-    void addSpeakingLang(List<String> speakingLangs);
+    List<UserDTO> getByUserStatus(String status);
+
+    void updateUser(Long userId, Map<String, Object> updates);
 }

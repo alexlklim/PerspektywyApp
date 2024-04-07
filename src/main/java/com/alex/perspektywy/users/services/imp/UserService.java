@@ -11,6 +11,7 @@ import com.alex.perspektywy.users.mappers.UserMapper;
 import com.alex.perspektywy.users.repo.EducationRepo;
 import com.alex.perspektywy.users.repo.SkillRepo;
 import com.alex.perspektywy.users.repo.UserRepo;
+import com.alex.perspektywy.users.services.IUserService;
 import com.alex.perspektywy.utils.exceptions.errors.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements IUserService {
 
     private final String TAG = "USER_SERVICE - ";
 
@@ -36,6 +37,7 @@ public class UserService {
     private final EducationRepo educationRepo;
 
 
+    @Override
     @Transactional
     @SneakyThrows
     public UserDTO getUserById(Long userId) {
@@ -50,6 +52,7 @@ public class UserService {
     }
 
 
+    @Override
     @SneakyThrows
     @Transactional
     public List<UserDTO> getByUserStatus(String status) {
@@ -61,6 +64,7 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     @Transactional
     @SneakyThrows
@@ -164,6 +168,7 @@ public class UserService {
                 Skill skill = skillRepo.findBySkill(entry.getKey()).orElse(null);
                 if (skill == null && entry.getValue()) {
                     Skill skillNew = new Skill(entry.getKey());
+                    skillNew.setActive(true);
                     Skill skillFromDB = skillRepo.save(skillNew);
                     user.getSkills().add(skillFromDB);
                 } else if (skill != null && entry.getValue()) {

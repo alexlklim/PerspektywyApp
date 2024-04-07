@@ -3,6 +3,7 @@ package com.alex.perspektywy.users.mappers;
 import com.alex.perspektywy.users.domain.Education;
 import com.alex.perspektywy.users.domain.Skill;
 import com.alex.perspektywy.users.domain.User;
+import com.alex.perspektywy.users.domain.enums.ProgrammingLang;
 import com.alex.perspektywy.users.dto.EducationDTO;
 import com.alex.perspektywy.users.dto.UserDTO;
 
@@ -29,7 +30,7 @@ public class UserMapper {
                 .city(user.getCity())
                 .experienceLevel(user.getExperienceLevel())
                 .userStatuses(convertToMapList(user.getUserStatuses()))
-                .programmingLangs(convertToMapList(user.getProgrammingLangs()))
+                .programmingLangs(convertToMapListWithValue(user.getProgrammingLangs()))
                 .speakingLangs(convertToMapList(user.getSpeakingLangs()))
                 .skills(convertSkillsToMap(user.getSkills()))
                 .educations(educations.stream()
@@ -44,6 +45,18 @@ public class UserMapper {
         for (E enumValue : enums) {
             Map<String, Boolean> enumMap = new HashMap<>();
             enumMap.put(enumValue.name(), true);
+            mapList.add(enumMap);
+        }
+
+        return mapList;
+    }
+
+    public static List<Map<String, Boolean>> convertToMapListWithValue(List<ProgrammingLang> enums){
+        List<Map<String, Boolean>> mapList = new ArrayList<>();
+
+        for (ProgrammingLang programmingLang: enums){
+            Map<String, Boolean> enumMap = new HashMap<>();
+            enumMap.put(programmingLang.getLangName(),true);
             mapList.add(enumMap);
         }
 

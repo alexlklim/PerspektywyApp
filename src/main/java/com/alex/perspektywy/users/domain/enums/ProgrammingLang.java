@@ -33,7 +33,7 @@ public enum ProgrammingLang {
 
 
     public static ProgrammingLang fromString(String langName) {
-        for (ProgrammingLang lang : ProgrammingLang.values()) {
+        for (ProgrammingLang lang : values()) {
             if (lang.getLangName().equalsIgnoreCase(langName)) {
                 return lang;
             }

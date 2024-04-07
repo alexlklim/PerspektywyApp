@@ -18,10 +18,10 @@ import java.util.List;
 @Schema(description = "Skills DTO with possible fields")
 public class SkillsFieldsDTO {
 
-    List<City> cities;
-    List<ExperienceLevel> experienceLevels;
-    List<ProgrammingLang> programmingLangs;
-    List<SpeakingLang> speakingLangs;
-    List<UserStatus> userStatuses;
+    List<String> cities;
+    List<String> experienceLevels;
+    List<String> programmingLangs;
+    List<String> speakingLangs;
+    List<String> userStatuses;
 
 }

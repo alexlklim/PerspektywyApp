@@ -33,7 +33,7 @@ public class Education extends BaseEntity {
     @Enumerated(EnumType.STRING)
     Universities university;
 
-    @ManyToOne
+    @ManyToOne @JoinColumn(name = "user_id")
     User user;
 
 }

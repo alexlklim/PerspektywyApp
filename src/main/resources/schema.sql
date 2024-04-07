@@ -1,3 +1,16 @@
+CREATE TABLE IF NOT EXISTS images
+(
+    id         BIGINT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    created    DATETIME,
+    updated    DATETIME,
+    is_active  BOOLEAN NOT NULL,
+    title      VARCHAR(255),
+    type       VARCHAR(255),
+    image_data LONGBLOB,
+    user_id    BIGINT
+);
+
+
 CREATE TABLE IF NOT EXISTS users
 (
     id               BIGINT                 NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -18,8 +31,14 @@ CREATE TABLE IF NOT EXISTS users
     latitude         DOUBLE,
     experience_years INT,
     city             ENUM ('WARSAW', 'KRAKOW', 'LODZ', 'WROCLAW', 'POZNAN', 'GDANSK', 'SZCZECIN', 'BYDGOSZCZ', 'LUBLIN', 'KATOWICE'),
-    experience_level ENUM ('JUNIOR', 'MID_LEVEL', 'SENIOR', 'LEAD', 'ARCHITECT', 'PRINCIPAL')
+    experience_level ENUM ('JUNIOR', 'MID_LEVEL', 'SENIOR', 'LEAD', 'ARCHITECT', 'PRINCIPAL'),
+    image_id         BIGINT
 );
+
+
+ALTER TABLE images
+    ADD CONSTRAINT image_created_by_user FOREIGN KEY (user_id) REFERENCES users (id);
+
 
 CREATE TABLE IF NOT EXISTS user_statuses
 (
@@ -111,4 +130,17 @@ CREATE TABLE IF NOT EXISTS notifications
     created_by BIGINT,
     FOREIGN KEY (to_user_id) REFERENCES users (id),
     FOREIGN KEY (created_by) REFERENCES users (id)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS news
+(
+    id        BIGINT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    is_active BOOLEAN NOT NULL,
+    created   DATETIME,
+    updated   DATETIME,
+    user_id   BIGINT,
+    image_id  BIGINT,
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );

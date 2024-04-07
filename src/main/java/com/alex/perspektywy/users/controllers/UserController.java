@@ -1,7 +1,11 @@
 package com.alex.perspektywy.users.controllers;
 
 
+import com.alex.perspektywy.users.domain.Skill;
+import com.alex.perspektywy.users.dto.EducationFieldsDTO;
+import com.alex.perspektywy.users.dto.SkillsFieldsDTO;
 import com.alex.perspektywy.users.dto.UserDTO;
+import com.alex.perspektywy.users.services.imp.SkillsService;
 import com.alex.perspektywy.users.services.imp.UserService;
 import com.alex.perspektywy.utils.SecHolder;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +29,7 @@ public class UserController {
     private final String TAG = "COMPANY_CONTROLLER - ";
 
     private final UserService userService;
+    private final SkillsService skillsService;
 
 
     @Operation(summary = "Get info about user by id")
@@ -51,10 +56,39 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(
             @RequestBody Map<String, Object> updates) {
-        log.info(TAG + "Get user by id");
+        log.info(TAG + "Update user");
         userService.updateUser(
                 SecHolder.getUserId(),
                 updates);
+    }
+
+
+
+
+    @Operation(summary = "Get skills by first two letter")
+    @GetMapping("/skill/{key_word}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Skill> getSkillByFirstTwoLetter(
+            @PathVariable("key_word") String keyWord) {
+        log.info(TAG + "Get skills by first two letter");
+        return skillsService.getSkillsByFirstLetters(keyWord);
+    }
+
+
+    @Operation(summary = "Get all possible skills for user")
+    @GetMapping("/skills")
+    @ResponseStatus(HttpStatus.OK)
+    public SkillsFieldsDTO getSkillsForUser() {
+        log.info(TAG + "Update user");
+        return skillsService.getSkillsFields();
+    }
+
+    @Operation(summary = "Get all possible fields for education")
+    @GetMapping("/educations")
+    @ResponseStatus(HttpStatus.OK)
+    public EducationFieldsDTO getFieldsForEducation() {
+        log.info(TAG + "Get all possible fields for education");
+        return skillsService.getEducationFields();
     }
 
 

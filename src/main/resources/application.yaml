@@ -12,7 +12,6 @@ spring:
       mode: always
       continue-on-error: false
       schema-locations:
-        - classpath:schema.sql
         - classpath:init.sql
 
   mail:
